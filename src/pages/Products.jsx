@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const products = [
@@ -50,18 +50,43 @@ const Products = () => {
     <div key={product.id} className="card mb-3">
       <div className="row">
         <div className="col-md-4">
-          <img src={product.productImageUrl} className="img-fluid rounded-start" alt="..."/>
+          <img
+            src={product.productImageUrl}
+            className="img-fluid rounded-start"
+            alt="..."
+          />
         </div>
         <div className="col-md-8">
           <div className="card-body">
             <h5 className="card-title">{product.name}</h5>
             <p className="card-text">{product.description}</p>
-            <p className="card-text"><small className="text-body-secondary">Price: {product.price}</small></p>
-            <Link to={`/products/${product.id}`} className="btn btn-primary">View Product</Link>
+            <p className="card-text">
+              <small className="text-body-secondary">
+                Price: {product.price}
+              </small>
+            </p>
+            <Link to={`/products/${product.id}`} className="btn btn-primary">
+              View Product
+            </Link>
           </div>
         </div>
       </div>
     </div>
+  ));
+
+  const affordableProducts = products.filter(
+    (product) => product.price.slice(1) < 80,
+  );
+  console.log(affordableProducts);
+
+  const productList = affordableProducts.map((prod) => (
+    <div key={prod.id}>
+      <h4>{prod.name}</h4>
+      <p>{prod.description}</p>
+      <small>Price: {prod.price}</small>
+      <hr/>
+        </div>
+    
   ));
 
   return (
@@ -70,6 +95,10 @@ const Products = () => {
       <main className="container">
         <h1 className="display-4 my-3">Products</h1>
         {productCard}
+        <hr />
+        <h2 className="display-4">Affordable Products</h2>
+        <hr/>
+        {productList}
       </main>
       <Footer />
     </>
